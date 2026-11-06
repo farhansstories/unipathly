@@ -5,141 +5,400 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unipathly — Your path to studying in Europe</title>
 <meta name="description" content="Unipathly helps international students find, apply to and fund their studies at European universities, with step-by-step admission roadmaps, document checklists and scholarship guidance.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e3a8a'/><text x='50' y='68' font-size='56' text-anchor='middle' fill='white' font-family='Arial' font-weight='700'>U</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%234f46e5'/><stop offset='1' stop-color='%2306b6d4'/></linearGradient></defs><rect width='100' height='100' rx='26' fill='url(%23g)'/><path d='M30 28v26a20 20 0 0 0 40 0V28' stroke='white' stroke-width='11' fill='none' stroke-linecap='round'/></svg>">
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0f172a;--muted:#475569;--line:#e2e8f0;--bg:#f8fafc;--brand:#1e3a8a;--brand2:#2563eb;--accent:#f59e0b}
+:root{
+  --ink:#0b1026;--ink2:#1e2547;--muted:#5b6385;--line:#e6e8f2;--soft:#f6f7fc;
+  --indigo:#4f46e5;--violet:#7c3aed;--cyan:#06b6d4;--pink:#ec4899;--amber:#f59e0b;
+  --grad:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#06b6d4 100%);
+  --grad-soft:linear-gradient(135deg,rgba(79,70,229,.10),rgba(6,182,212,.10));
+  --shadow:0 20px 50px -20px rgba(30,37,71,.25);
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;background:#fff}
-a{color:var(--brand2);text-decoration:none}
-.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
-header{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
-nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--ink)}
-.logo span{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:var(--brand);color:#fff}
-.links{display:flex;gap:28px;font-size:.95rem}
-.links a{color:var(--muted)}.links a:hover{color:var(--ink)}
-.btn{display:inline-block;padding:12px 22px;border-radius:10px;font-weight:600;background:var(--brand);color:#fff}
-.btn:hover{background:var(--brand2)}
-.btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--line)}
-.hero{padding:96px 0 80px;background:linear-gradient(180deg,#eef2ff 0%,#fff 100%)}
-.tag{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);background:#dbeafe;padding:6px 12px;border-radius:999px;margin-bottom:20px}
-h1{font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.12;letter-spacing:-.02em;max-width:760px}
-.hero p{font-size:1.2rem;color:var(--muted);max-width:640px;margin:20px 0 32px}
+html{scroll-behavior:smooth}
+body{font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);line-height:1.65;background:#fff;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+svg.i{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* header */
+header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,box-shadow .3s}
+header.scrolled{background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(14px);box-shadow:0 1px 0 var(--line)}
+nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.3rem;letter-spacing:-.02em}
+.logo-mark{width:38px;height:38px;border-radius:11px;background:var(--grad);display:grid;place-items:center;box-shadow:0 8px 20px -6px rgba(79,70,229,.6)}
+.logo-mark svg{width:20px;height:20px;stroke:#fff;stroke-width:3;fill:none;stroke-linecap:round}
+.links{display:flex;gap:32px;font-size:.95rem;font-weight:500;color:var(--muted)}
+.links a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:12px;font-weight:700;font-size:.97rem;transition:transform .2s,box-shadow .2s}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 12px 28px -10px rgba(79,70,229,.7)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px -10px rgba(79,70,229,.8)}
+.btn-ghost{background:#fff;color:var(--ink2);border:1px solid var(--line)}
+.btn-ghost:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn svg.i{width:18px;height:18px}
+
+/* hero */
+.hero{position:relative;padding:150px 0 100px;overflow:hidden;background:radial-gradient(1200px 600px at 10% -10%,#eef0ff 0%,transparent 60%),radial-gradient(900px 500px at 100% 0%,#e0f7fb 0%,transparent 60%),#fff}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;z-index:0;animation:float 14s ease-in-out infinite}
+.b1{width:420px;height:420px;background:#a5b4fc;top:-120px;left:-120px}
+.b2{width:360px;height:360px;background:#67e8f9;top:40px;right:-100px;animation-delay:-5s}
+.b3{width:300px;height:300px;background:#f0abfc;bottom:-140px;left:40%;animation-delay:-9s;opacity:.35}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-25px) scale(1.08)}}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 8px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.85rem;font-weight:600;color:var(--ink2);box-shadow:0 6px 18px -10px rgba(30,37,71,.3);margin-bottom:24px}
+.pill b{background:var(--grad);color:#fff;font-size:.72rem;padding:3px 9px;border-radius:999px;letter-spacing:.04em}
+h1{font-size:clamp(2.5rem,5.4vw,4rem);line-height:1.06;letter-spacing:-.035em;font-weight:800}
+.hero p.sub{font-size:1.18rem;color:var(--muted);max-width:560px;margin:22px 0 34px}
 .cta{display:flex;gap:12px;flex-wrap:wrap}
-section{padding:80px 0}
-h2{font-size:clamp(1.7rem,3.5vw,2.3rem);letter-spacing:-.01em;margin-bottom:12px}
-.lead{color:var(--muted);font-size:1.1rem;max-width:680px;margin-bottom:44px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
-.card{border:1px solid var(--line);border-radius:16px;padding:28px;background:#fff}
-.card .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:#eff6ff;font-size:1.3rem;margin-bottom:16px}
-.card h3{font-size:1.1rem;margin-bottom:8px}
-.card p{color:var(--muted);font-size:.97rem}
-.alt{background:var(--bg)}
-.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.step{position:relative;padding:28px;border-radius:16px;background:#fff;border:1px solid var(--line)}
-.step::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;margin-bottom:14px}
-.step h3{font-size:1.05rem;margin-bottom:6px}.step p{color:var(--muted);font-size:.95rem}
-.who{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px;align-items:start}
-.who ul{list-style:none}
-.who li{padding:12px 0 12px 32px;border-bottom:1px solid var(--line);position:relative;color:var(--muted)}
-.who li::before{content:"✓";position:absolute;left:0;color:var(--brand2);font-weight:700}
-.about{display:grid;grid-template-columns:120px 1fr;gap:32px;align-items:start}
-.avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;display:grid;place-items:center;font-size:2.4rem;font-weight:800}
-.about p{color:var(--muted);margin-bottom:14px;max-width:700px}
-.about .role{color:var(--brand);font-weight:600;margin-bottom:12px}
-.status{border-left:4px solid var(--accent);background:#fffbeb;padding:20px 24px;border-radius:0 12px 12px 0;color:#78350f;max-width:760px}
-.contact{text-align:center;background:var(--brand);color:#fff;border-radius:24px;padding:64px 24px}
-.contact h2{color:#fff}.contact p{color:#c7d2fe;max-width:560px;margin:0 auto 28px}
-.contact .btn{background:#fff;color:var(--brand)}
-footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:.9rem}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-footer a{color:var(--muted)}
-@media(max-width:720px){.links{display:none}.about{grid-template-columns:1fr}.hero{padding:64px 0 56px}section{padding:56px 0}}
+.trust{display:flex;gap:22px;flex-wrap:wrap;margin-top:34px;color:var(--muted);font-size:.9rem;font-weight:500}
+.trust span{display:flex;align-items:center;gap:7px}
+.trust svg.i{width:18px;height:18px;color:var(--indigo)}
+
+/* product mock */
+.mock{position:relative;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.8);border-radius:22px;box-shadow:0 40px 80px -30px rgba(30,37,71,.35),0 0 0 1px var(--line);padding:22px;transform:rotate(1.2deg)}
+.mock-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:#e5e7eb}.dots i:nth-child(1){background:#fca5a5}.dots i:nth-child(2){background:#fcd34d}.dots i:nth-child(3){background:#86efac}
+.tag-sm{font-size:.72rem;font-weight:700;color:var(--violet);background:#f3e8ff;padding:4px 10px;border-radius:999px}
+.mock h4{font-size:1.05rem;font-weight:800;letter-spacing:-.01em}
+.mock .meta{font-size:.82rem;color:var(--muted);margin-bottom:12px}
+.bar{height:8px;border-radius:99px;background:#eef0f6;overflow:hidden;margin-bottom:6px}
+.bar span{display:block;height:100%;width:58%;background:var(--grad);border-radius:99px;animation:grow 2.2s ease-out}
+@keyframes grow{from{width:0}}
+.bar-l{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);margin-bottom:14px}
+.task{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;border:1px solid var(--line);margin-bottom:8px;background:#fff;font-size:.88rem;font-weight:600}
+.task small{display:block;font-weight:500;color:var(--muted);font-size:.76rem}
+.chk{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;flex-shrink:0}
+.chk svg{width:14px;height:14px;stroke:#fff;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.done .chk{background:linear-gradient(135deg,#10b981,#06b6d4)}
+.done span.t{text-decoration:line-through;color:var(--muted)}
+.todo .chk{border:2px solid #cbd5e1}
+.task .due{margin-left:auto;font-size:.72rem;font-weight:700;padding:3px 8px;border-radius:7px;white-space:nowrap}
+.due.r{background:#fee2e2;color:#b91c1c}.due.a{background:#fef3c7;color:#92400e}.due.g{background:#e0e7ff;color:#3730a3}
+.float-card{position:absolute;background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:.8rem;font-weight:700;border:1px solid var(--line);animation:bob 6s ease-in-out infinite}
+.float-card small{display:block;font-weight:500;color:var(--muted)}
+.fc1{left:-38px;bottom:40px}.fc2{right:-24px;top:-22px;animation-delay:-3s}
+.fc-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff}
+.fc-ic svg.i{width:18px;height:18px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.preview-note{text-align:center;font-size:.75rem;color:var(--muted);margin-top:14px;position:relative;z-index:1}
+
+/* sections */
+section{padding:110px 0;position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.eyebrow::before{content:"";width:22px;height:3px;border-radius:3px;background:var(--grad)}
+h2{font-size:clamp(1.9rem,3.8vw,2.8rem);line-height:1.12;letter-spacing:-.03em;font-weight:800;max-width:720px}
+.lead{color:var(--muted);font-size:1.12rem;max-width:640px;margin:16px 0 56px}
+.center{text-align:center}.center h2,.center .lead{margin-left:auto;margin-right:auto}
+
+/* problem */
+.prob{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.pcard{padding:30px;border-radius:20px;background:var(--soft);border:1px solid var(--line);transition:transform .3s,box-shadow .3s}
+.pcard:hover{transform:translateY(-6px);box-shadow:var(--shadow);background:#fff}
+.pic{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;margin-bottom:18px;color:#fff}
+.pic.red{background:linear-gradient(135deg,#f43f5e,#fb923c)}
+.pic.amb{background:linear-gradient(135deg,#f59e0b,#facc15)}
+.pic.pur{background:linear-gradient(135deg,#a855f7,#ec4899)}
+.pcard h3{font-size:1.15rem;font-weight:800;margin-bottom:8px;letter-spacing:-.01em}
+.pcard p{color:var(--muted);font-size:.97rem}
+
+/* features */
+.features{background:linear-gradient(180deg,#0b1026 0%,#151b3d 100%);color:#fff;overflow:hidden}
+.features .lead{color:#a5adcf}
+.features::before{content:"";position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.35),transparent 65%);top:-300px;right:-200px}
+.features::after{content:"";position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,.25),transparent 65%);bottom:-300px;left:-200px}
+.fgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;position:relative;z-index:1}
+.fcard{position:relative;padding:34px;border-radius:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);transition:transform .3s,background .3s,border-color .3s;overflow:hidden}
+.fcard:hover{transform:translateY(-6px);background:rgba(255,255,255,.07);border-color:rgba(165,180,252,.4)}
+.fic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;margin-bottom:22px;background:var(--grad);box-shadow:0 14px 30px -12px rgba(124,58,237,.9)}
+.fic svg.i{width:26px;height:26px;color:#fff}
+.fcard h3{font-size:1.3rem;font-weight:800;margin-bottom:10px;letter-spacing:-.01em}
+.fcard p{color:#a5adcf}
+.fcard ul{list-style:none;margin-top:16px;display:grid;gap:8px}
+.fcard li{display:flex;gap:10px;align-items:center;font-size:.93rem;color:#d4d8ee}
+.fcard li svg.i{width:18px;height:18px;color:#67e8f9}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;position:relative}
+.steps::before{content:"";position:absolute;top:34px;left:12%;right:12%;height:2px;background:linear-gradient(90deg,#c7d2fe,#a5f3fc);z-index:0}
+.step{position:relative;z-index:1;text-align:center;padding:0 8px}
+.snum{width:68px;height:68px;border-radius:20px;margin:0 auto 20px;display:grid;place-items:center;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);color:var(--indigo);position:relative}
+.snum svg.i{width:28px;height:28px}
+.snum b{position:absolute;top:-8px;right:-8px;width:26px;height:26px;border-radius:50%;background:var(--grad);color:#fff;font-size:.78rem;display:grid;place-items:center}
+.step h3{font-size:1.08rem;font-weight:800;margin-bottom:6px}
+.step p{color:var(--muted);font-size:.93rem}
+
+/* audience */
+.aud{background:var(--soft)}
+.agrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.acard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;transition:transform .3s,box-shadow .3s}
+.acard:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.aic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:var(--grad-soft);color:var(--indigo);margin-bottom:16px}
+.acard h3{font-size:1.02rem;font-weight:800;margin-bottom:6px}
+.acard p{color:var(--muted);font-size:.9rem}
+
+/* about */
+.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
+.founder{position:relative;border-radius:26px;padding:36px;background:var(--grad);color:#fff;overflow:hidden;box-shadow:0 30px 60px -25px rgba(79,70,229,.7)}
+.founder::after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.12);right:-80px;bottom:-80px}
+.avatar{width:84px;height:84px;border-radius:24px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.45);display:grid;place-items:center;font-size:1.8rem;font-weight:800;margin-bottom:22px}
+.founder h3{font-size:1.5rem;font-weight:800;letter-spacing:-.02em}
+.founder .role{opacity:.85;font-weight:600;margin-bottom:18px}
+.founder .loc{display:flex;align-items:center;gap:8px;font-size:.92rem;opacity:.9}
+.founder .loc svg.i{width:18px;height:18px}
+.about-text p{color:var(--muted);font-size:1.06rem;margin-bottom:16px}
+.about-text p.q{font-size:1.25rem;color:var(--ink2);font-weight:600;line-height:1.5;border-left:4px solid;border-image:var(--grad) 1;padding-left:20px;margin:24px 0}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.rcard{border-radius:20px;padding:28px;border:1px solid var(--line);background:#fff;position:relative}
+.rcard.now{border:2px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--grad) border-box;box-shadow:var(--shadow)}
+.rbadge{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px;margin-bottom:14px}
+.now .rbadge{background:var(--grad);color:#fff}
+.next .rbadge{background:#e0e7ff;color:#3730a3}
+.later .rbadge{background:#f1f5f9;color:#475569}
+.pulse{width:8px;height:8px;border-radius:50%;background:#fff;animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.8)}100%{box-shadow:0 0 0 10px rgba(255,255,255,0)}}
+.rcard h3{font-size:1.12rem;font-weight:800;margin-bottom:6px}
+.rcard p{color:var(--muted);font-size:.94rem}
+
+/* faq */
+.faq{max-width:780px;margin:0 auto}
+details{border:1px solid var(--line);border-radius:16px;padding:20px 24px;margin-bottom:12px;background:#fff;transition:box-shadow .2s}
+details[open]{box-shadow:var(--shadow)}
+summary{cursor:pointer;font-weight:700;font-size:1.03rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary svg.i{width:20px;height:20px;color:var(--indigo);transition:transform .25s}
+details[open] summary svg.i{transform:rotate(45deg)}
+details p{color:var(--muted);margin-top:12px}
+
+/* cta */
+.final{position:relative;border-radius:30px;padding:76px 32px;text-align:center;color:#fff;overflow:hidden;background:var(--grad)}
+.final::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 250px at 20% 0%,rgba(255,255,255,.25),transparent 60%),radial-gradient(500px 250px at 90% 100%,rgba(236,72,153,.35),transparent 60%)}
+.final>*{position:relative}
+.final h2{margin:0 auto 14px;color:#fff}
+.final p{max-width:560px;margin:0 auto 32px;opacity:.9;font-size:1.1rem}
+.btn-white{background:#fff;color:var(--indigo);box-shadow:0 14px 30px -12px rgba(0,0,0,.4)}
+.btn-white:hover{transform:translateY(-2px)}
+.final small{display:block;margin-top:18px;opacity:.8;font-size:.88rem}
+
+/* footer */
+footer{padding:44px 0;border-top:1px solid var(--line);margin-top:110px}
+.fwrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;color:var(--muted);font-size:.9rem}
+.fwrap .links{gap:22px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+@media(max-width:960px){
+  .hero-grid,.about{grid-template-columns:1fr}
+  .mock{transform:none;max-width:460px;margin:20px auto 0}
+  .prob,.road{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr}
+  .steps,.agrid{grid-template-columns:1fr 1fr}
+  .steps::before{display:none}
+}
+@media(max-width:640px){
+  .links.main{display:none}
+  .hero{padding:120px 0 70px}
+  section{padding:76px 0}
+  .steps,.agrid{grid-template-columns:1fr}
+  .fc1{left:-8px}.fc2{right:-6px}
+  nav .btn{padding:10px 16px;font-size:.88rem}
+}
 </style>
 </head>
 <body>
-<header><div class="wrap"><nav>
-  <a href="#" class="logo"><span>U</span>Unipathly</a>
-  <div class="links"><a href="#product">Product</a><a href="#how">How it works</a><a href="#about">About</a><a href="#contact">Contact</a></div>
-  <a href="#contact" class="btn">Get early access</a>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5L2 9z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M8 14h2M14 14h2M8 17h2"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h8a3 3 0 0 0 0-6H8a3 3 0 0 1 0-6h8"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M9 13l2 2 4-4"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 13.5a7 7 0 0 1 4 6.5"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></symbol>
+  <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .9-3 2s1.3 1.7 3 2 3 .9 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16z"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+</svg>
+
+<header id="hdr"><div class="wrap"><nav>
+  <a href="#" class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24"><path d="M7 5v7a5 5 0 0 0 10 0V5"/></svg></span>Unipathly</a>
+  <div class="links main"><a href="#features">Features</a><a href="#how">How it works</a><a href="#about">About</a><a href="#faq">FAQ</a></div>
+  <a href="#contact" class="btn btn-primary">Get early access</a>
 </nav></div></header>
 
 <main>
-<section class="hero"><div class="wrap">
-  <div class="tag">For international students</div>
-  <h1>Your clear path to studying at a European university.</h1>
-  <p>Unipathly turns confusing admission rules, document requirements and scholarship deadlines into one simple, step-by-step plan, so you can apply with confidence and never miss a requirement.</p>
-  <div class="cta"><a href="#contact" class="btn">Join the early-access list</a><a href="#product" class="btn ghost">See what it does</a></div>
-</div></section>
+<section class="hero">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="wrap hero-grid">
+    <div class="rv">
+      <div class="pill"><b>NEW</b> Early access opening soon</div>
+      <h1>Your clear path to studying at a <span class="grad-text">European university.</span></h1>
+      <p class="sub">Unipathly turns confusing admission rules, document requirements and scholarship deadlines into one simple, step-by-step plan, so you can apply with confidence and never miss a requirement.</p>
+      <div class="cta">
+        <a href="#contact" class="btn btn-primary">Join the early-access list <svg class="i"><use href="#i-arrow"/></svg></a>
+        <a href="#features" class="btn btn-ghost">See what it does</a>
+      </div>
+      <div class="trust">
+        <span><svg class="i"><use href="#i-globe"/></svg>Built for international students</span>
+        <span><svg class="i"><use href="#i-shield"/></svg>No tracking, no spam</span>
+      </div>
+    </div>
+
+    <div class="rv" style="transition-delay:.15s">
+      <div class="mock">
+        <div class="mock-top"><div class="dots"><i></i><i></i><i></i></div><span class="tag-sm">Your roadmap</span></div>
+        <h4>Bachelor's application — Italy</h4>
+        <div class="meta">Example plan · 7 of 12 steps done</div>
+        <div class="bar"><span></span></div>
+        <div class="bar-l"><span>Progress</span><span>58%</span></div>
+        <div class="task done"><span class="chk"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span><span class="t">Choose programs &amp; universities</span></div>
+        <div class="task done"><span class="chk"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span><span class="t">Pre-enrolment request</span></div>
+        <div class="task todo"><span class="chk"></span><span>Translate &amp; legalise diploma<small>Checklist: 3 documents</small></span><span class="due r">Due in 5 days</span></div>
+        <div class="task todo"><span class="chk"></span><span>Regional scholarship application<small>Income documents needed</small></span><span class="due a">2 weeks</span></div>
+        <div class="task todo"><span class="chk"></span><span>Book visa appointment</span><span class="due g">Next month</span></div>
+      </div>
+      <div class="preview-note">Product preview — illustrative example</div>
+    </div>
+  </div>
+</section>
 
 <section id="problem"><div class="wrap">
+  <div class="rv"><div class="eyebrow grad-text">The problem</div>
   <h2>Applying to study abroad shouldn't feel like guesswork</h2>
-  <p class="lead">Every country, university and scholarship has its own rules, portals, translations and deadlines. Information is scattered across dozens of websites, often only in the local language. One missing document can mean a rejected application or a lost scholarship.</p>
-  <div class="grid">
-    <div class="card"><div class="ic">🧭</div><h3>Scattered information</h3><p>Requirements are spread across university pages, national portals and regional scholarship agencies.</p></div>
-    <div class="card"><div class="ic">📄</div><h3>Complex documents</h3><p>Translations, legalisations, equivalence declarations and income documents vary by country.</p></div>
-    <div class="card"><div class="ic">⏰</div><h3>Hard deadlines</h3><p>Admission, pre-enrolment, visa and scholarship deadlines overlap and are easy to miss.</p></div>
+  <p class="lead">Every country, university and scholarship has its own rules, portals, translations and deadlines. Information is scattered and often only in the local language. One missing document can mean a rejected application or a lost scholarship.</p></div>
+  <div class="prob">
+    <div class="pcard rv"><div class="pic pur"><svg class="i"><use href="#i-search"/></svg></div><h3>Scattered information</h3><p>Requirements are spread across university pages, national portals and regional scholarship agencies.</p></div>
+    <div class="pcard rv" style="transition-delay:.1s"><div class="pic amb"><svg class="i"><use href="#i-doc"/></svg></div><h3>Complex documents</h3><p>Translations, legalisations, equivalence declarations and income documents vary by country.</p></div>
+    <div class="pcard rv" style="transition-delay:.2s"><div class="pic red"><svg class="i"><use href="#i-clock"/></svg></div><h3>Hard deadlines</h3><p>Admission, pre-enrolment, visa and scholarship deadlines overlap and are easy to miss.</p></div>
   </div>
 </div></section>
 
-<section id="product" class="alt"><div class="wrap">
-  <h2>What Unipathly does</h2>
-  <p class="lead">One place to plan, prepare and track your applications to European universities.</p>
-  <div class="grid">
-    <div class="card"><div class="ic">🗺️</div><h3>Admission roadmaps</h3><p>Step-by-step guides for each country and program: from pre-enrolment and entrance tests to enrolment and visa.</p></div>
-    <div class="card"><div class="ic">✅</div><h3>Personal document checklists</h3><p>A checklist built for your nationality and target program, showing which documents need translation or legalisation.</p></div>
-    <div class="card"><div class="ic">🎓</div><h3>Scholarship guidance</h3><p>Find regional and university scholarships you may qualify for, and understand exactly what each one requires.</p></div>
-    <div class="card"><div class="ic">📅</div><h3>Deadline tracker</h3><p>All your admission, scholarship and visa dates in one timeline, with reminders before each one.</p></div>
+<section id="features" class="features"><div class="wrap">
+  <div class="rv center"><div class="eyebrow" style="color:#a5b4fc">What Unipathly does</div>
+  <h2>Everything you need, from first search to enrolment</h2>
+  <p class="lead">One place to plan, prepare and track your applications to European universities.</p></div>
+  <div class="fgrid">
+    <div class="fcard rv"><div class="fic"><svg class="i"><use href="#i-map"/></svg></div><h3>Admission roadmaps</h3><p>Step-by-step guides for each country and program, from pre-enrolment and entrance tests to enrolment and visa.</p>
+      <ul><li><svg class="i"><use href="#i-ok"/></svg>Country and university-specific steps</li><li><svg class="i"><use href="#i-ok"/></svg>Explained in plain English</li></ul></div>
+    <div class="fcard rv" style="transition-delay:.1s"><div class="fic"><svg class="i"><use href="#i-check"/></svg></div><h3>Personal document checklists</h3><p>A checklist built for your nationality and target program, showing which documents need translation or legalisation.</p>
+      <ul><li><svg class="i"><use href="#i-ok"/></svg>Know exactly what to prepare</li><li><svg class="i"><use href="#i-ok"/></svg>Track every document's status</li></ul></div>
+    <div class="fcard rv"><div class="fic"><svg class="i"><use href="#i-cap"/></svg></div><h3>Scholarship guidance</h3><p>Find regional and university scholarships you may qualify for, and understand exactly what each one requires.</p>
+      <ul><li><svg class="i"><use href="#i-ok"/></svg>Eligibility explained clearly</li><li><svg class="i"><use href="#i-ok"/></svg>Required documents listed up front</li></ul></div>
+    <div class="fcard rv" style="transition-delay:.1s"><div class="fic"><svg class="i"><use href="#i-cal"/></svg></div><h3>Deadline tracker</h3><p>All your admission, scholarship and visa dates in one timeline, with reminders before each one.</p>
+      <ul><li><svg class="i"><use href="#i-ok"/></svg>One timeline for every application</li><li><svg class="i"><use href="#i-ok"/></svg>Reminders before it's too late</li></ul></div>
   </div>
 </div></section>
 
 <section id="how"><div class="wrap">
-  <h2>How it works</h2>
-  <p class="lead">From "where do I start?" to a submitted application.</p>
+  <div class="rv center"><div class="eyebrow grad-text">How it works</div>
+  <h2>From "where do I start?" to a submitted application</h2>
+  <p class="lead">Four simple steps, one clear plan.</p></div>
   <div class="steps">
-    <div class="step"><h3>Tell us your goal</h3><p>Choose the countries and fields you're interested in, and share your nationality and education background.</p></div>
-    <div class="step"><h3>Get your roadmap</h3><p>Receive a personalised plan with every step, document and deadline for your chosen programs.</p></div>
-    <div class="step"><h3>Prepare your documents</h3><p>Work through your checklist, track translations, and keep everything organised in one place.</p></div>
-    <div class="step"><h3>Apply and track</h3><p>Submit on time, follow your application and scholarship status, and get reminded of next steps.</p></div>
+    <div class="step rv"><div class="snum"><b>1</b><svg class="i"><use href="#i-target"/></svg></div><h3>Tell us your goal</h3><p>Choose countries and fields, and share your nationality and education background.</p></div>
+    <div class="step rv" style="transition-delay:.1s"><div class="snum"><b>2</b><svg class="i"><use href="#i-route"/></svg></div><h3>Get your roadmap</h3><p>Receive a personalised plan with every step, document and deadline.</p></div>
+    <div class="step rv" style="transition-delay:.2s"><div class="snum"><b>3</b><svg class="i"><use href="#i-folder"/></svg></div><h3>Prepare documents</h3><p>Work through your checklist and keep everything organised in one place.</p></div>
+    <div class="step rv" style="transition-delay:.3s"><div class="snum"><b>4</b><svg class="i"><use href="#i-send"/></svg></div><h3>Apply and track</h3><p>Submit on time and follow your application and scholarship status.</p></div>
   </div>
 </div></section>
 
-<section class="alt"><div class="wrap who">
-  <div><h2>Who it's for</h2><p class="lead" style="margin-bottom:0">Students from outside the EU who want to study in Europe and need a clear, reliable guide through the process.</p></div>
-  <ul>
-    <li>High-school graduates applying for bachelor's programs</li>
-    <li>Graduates applying for master's programs</li>
-    <li>Students who need a scholarship or fee reduction to study abroad</li>
-    <li>Families and advisors helping a student apply</li>
-  </ul>
+<section class="aud"><div class="wrap">
+  <div class="rv"><div class="eyebrow grad-text">Who it's for</div>
+  <h2>Made for students from outside the EU</h2>
+  <p class="lead">Anyone who wants to study in Europe and needs a clear, reliable guide through the process.</p></div>
+  <div class="agrid">
+    <div class="acard rv"><div class="aic"><svg class="i"><use href="#i-book"/></svg></div><h3>Bachelor's applicants</h3><p>High-school graduates applying to their first degree abroad.</p></div>
+    <div class="acard rv" style="transition-delay:.08s"><div class="aic"><svg class="i"><use href="#i-cap"/></svg></div><h3>Master's applicants</h3><p>Graduates applying to a master's program in Europe.</p></div>
+    <div class="acard rv" style="transition-delay:.16s"><div class="aic"><svg class="i"><use href="#i-coin"/></svg></div><h3>Scholarship seekers</h3><p>Students who need a scholarship or fee reduction to study.</p></div>
+    <div class="acard rv" style="transition-delay:.24s"><div class="aic"><svg class="i"><use href="#i-users"/></svg></div><h3>Families &amp; advisors</h3><p>Parents and counsellors helping a student apply.</p></div>
+  </div>
 </div></section>
 
-<section id="about"><div class="wrap">
-  <h2>About us</h2>
-  <div class="about" style="margin-top:32px">
+<section id="about"><div class="wrap about">
+  <div class="founder rv">
     <div class="avatar">MF</div>
-    <div>
-      <h3>Muhammad Farhan</h3>
-      <div class="role">Founder</div>
-      <p>I'm a student based in Budapest, Hungary. Going through university admissions and scholarship applications in Europe as an international student, I saw how much time is lost to scattered information, unclear document rules and missed deadlines.</p>
-      <p>I started Unipathly to build the guide I wish I'd had: a single, clear path from choosing a program to enrolling, for every student who wants to study in Europe.</p>
-    </div>
+    <h3>Muhammad Farhan</h3>
+    <div class="role">Founder, Unipathly</div>
+    <div class="loc"><svg class="i"><use href="#i-pin"/></svg>Budapest, Hungary</div>
   </div>
-  <div class="status" style="margin-top:40px"><strong>Current stage:</strong> Unipathly is self-funded and in early development. We're building our first version and opening early access to a small group of students. Join the list below to be one of the first users.</div>
+  <div class="about-text rv" style="transition-delay:.1s">
+    <div class="eyebrow grad-text">About us</div>
+    <h2>Built by a student who's been through it</h2>
+    <p style="margin-top:18px">I'm a student based in Budapest, Hungary. Going through university admissions and scholarship applications in Europe as an international student, I saw how much time is lost to scattered information, unclear document rules and missed deadlines.</p>
+    <p class="q">I started Unipathly to build the guide I wish I'd had: one clear path from choosing a program to enrolling.</p>
+    <p>Unipathly is self-funded and in early development.</p>
+  </div>
 </div></section>
 
-<section id="contact"><div class="wrap">
-  <div class="contact">
-    <h2>Get early access</h2>
+<section style="padding-top:0"><div class="wrap">
+  <div class="rv center"><div class="eyebrow grad-text">Roadmap</div>
+  <h2>Where we are today</h2>
+  <p class="lead">We're honest about our stage: here's what we're working on.</p></div>
+  <div class="road">
+    <div class="rcard now rv"><span class="rbadge"><span class="pulse"></span>Now</span><h3>Building the first version</h3><p>Designing the roadmap, checklist and deadline features, and writing the first admission guides.</p></div>
+    <div class="rcard next rv" style="transition-delay:.1s"><span class="rbadge">Next</span><h3>Early access</h3><p>Opening Unipathly to a small group of students and improving it with their feedback.</p></div>
+    <div class="rcard later rv" style="transition-delay:.2s"><span class="rbadge">Later</span><h3>More countries &amp; programs</h3><p>Expanding guides and scholarship information to more countries and universities across Europe.</p></div>
+  </div>
+</div></section>
+
+<section id="faq" style="padding-top:0"><div class="wrap">
+  <div class="rv center"><div class="eyebrow grad-text">FAQ</div><h2>Questions, answered</h2><p class="lead"></p></div>
+  <div class="faq">
+    <details class="rv"><summary>Is Unipathly available now?<svg class="i"><use href="#i-plus"/></svg></summary><p>Not yet. We're building the first version and will open early access to a small group of students first. Email us to join the list.</p></details>
+    <details class="rv"><summary>Who can use Unipathly?<svg class="i"><use href="#i-plus"/></svg></summary><p>Any student who wants to study at a European university, especially students from outside the EU who face extra steps like document legalisation and visas.</p></details>
+    <details class="rv"><summary>Does it replace the official university websites?<svg class="i"><use href="#i-plus"/></svg></summary><p>No. Unipathly organises the process and points you to official sources, but universities and official portals always have the final word on requirements.</p></details>
+    <details class="rv"><summary>What do you do with my email?<svg class="i"><use href="#i-plus"/></svg></summary><p>We only use it to reply to you and to invite you to early access. We never sell or share it. See our <a href="privacy.html" style="color:var(--indigo);font-weight:600">privacy policy</a>.</p></details>
+  </div>
+</div></section>
+
+<section id="contact" style="padding-top:0"><div class="wrap">
+  <div class="final rv">
+    <h2>Be one of the first to try Unipathly</h2>
     <p>Planning to study in Europe? Email us with the country and program you're interested in, and we'll invite you when early access opens.</p>
-    <a class="btn" href="mailto:faran@unipathly.xyz?subject=Unipathly%20early%20access">faran@unipathly.xyz</a>
+    <a class="btn btn-white" href="mailto:faran@unipathly.xyz?subject=Unipathly%20early%20access"><svg class="i"><use href="#i-mail"/></svg>faran@unipathly.xyz</a>
+    <small>Free to join · No spam, ever</small>
   </div>
 </div></section>
 </main>
 
-<footer><div class="wrap">
-  <div>© 2026 Unipathly. Budapest, Hungary.</div>
-  <div><a href="privacy.html">Privacy policy</a> · <a href="mailto:faran@unipathly.xyz">Contact</a></div>
+<footer><div class="wrap fwrap">
+  <a href="#" class="logo" style="font-size:1.1rem"><span class="logo-mark" style="width:32px;height:32px"><svg viewBox="0 0 24 24"><path d="M7 5v7a5 5 0 0 0 10 0V5"/></svg></span>Unipathly</a>
+  <div>© 2026 Unipathly · Budapest, Hungary</div>
+  <div class="links"><a href="privacy.html">Privacy policy</a><a href="mailto:faran@unipathly.xyz">Contact</a></div>
 </div></footer>
+
+<script>
+(function(){
+  var h=document.getElementById('hdr');
+  function onScroll(){ if(window.scrollY>10){h.classList.add('scrolled')}else{h.classList.remove('scrolled')} }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in')}); return; }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  },{threshold:.12});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
 </body>
 </html>
